@@ -1,0 +1,101 @@
+@charset "utf-8";
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: arial, "Microsoft YaHei";
+    color: #FEFEFE;
+}
+
+body {
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.playBox {
+    position: fixed;
+    width: 1000px;
+    height: 90px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#showBox {
+    width: 1000px;
+    height: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 90px;
+    margin: 0 auto;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    background: #272822;
+    font-family: arial, "Microsoft YaHei";
+    border-radius: 3px;
+}
+
+#playerTime {
+    margin: 0.5% 0 0.5% 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#songInfo {
+    margin-top: 0 5px;    
+    position: absolute;
+    border-bottom: 1px solid #575656;
+    height: 28px;
+    width: 100%;
+    left: 0;
+    top:0;
+}
+
+#songInfo #songTitle {
+    cursor: default;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 12px;
+    margin-top:3px;
+    height: 100%;
+    font-size: 19px;
+    line-height: 25px;
+    float: left;
+}
+
+#playerShow {
+    position: absolute;
+    font-size: 16px;
+    left: 5%;
+    height: 50px;
+    width: 90%;
+    top: 35%;
+    cursor: default;
+}
+
+#playerShow #progress {
+    position: absolute;
+    bottom: 12px;
+    border-radius: 4px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #5a5a5a;
+}
+
+#playerShow #progress #playerProgressBar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 4px;
+    height: 100%;
+    background: #258fb8;
+}
