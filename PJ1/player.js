@@ -1,10 +1,5 @@
 function Player(){
-    var timer;
-    var analyser = null;
     var Myself = this;
-    Myself.event = function (e) {
-
-    }
     this.config = function (Object) {
         Myself.playList = Object.playList;
         Myself.canvasId = Object.canvasId;
@@ -12,23 +7,11 @@ function Player(){
         load();
     }
 
-    function windowAudioContext() {
-        window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
-        window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
-        window.cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.msCancelAnimationFrame;
-        try {
-            Myself.audioContext = new AudioContext();
-        } catch (e) {
-            console.log('您的浏览器不支持 AudioContext,信息:' + e);
-        }
-    }
-
     function load() {
         var audio = document.createElement("AUDIO");
         var player = document.getElementById("player");
         player.appendChild(audio);
         Myself.audio = audio;
-        windowAudioContext();
         var playList = Myself.playList;
         Myself.audio.src = playList[0].mp3;
         var songInfo = document.getElementById('songInfo');
@@ -71,9 +54,8 @@ function Player(){
         }
     }
     function playHandle() {
-        windowAudioContext();
-        var audioContext = Myself.audioContext;
-        var analyser = audioContext.createAnalyser();
+        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var analyser = audioContext.createAnalyser();        
         var playData = audioContext.createMediaElementSource(Myself.audio);
         playData.connect(analyser);
         analyser.connect(audioContext.destination);
