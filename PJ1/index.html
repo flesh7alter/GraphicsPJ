@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="HTML5VisualizationPlayer">
+    <meta name="description" content="MusicVisualization">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音乐可视化</title>
     <link type="text/css" rel="stylesheet" href="main.css">
     <script src="player.js"></script>
 </head>
-
 <body>
     <div id="showBox">
         <canvas id="show" width="1000" height="700"></canvas>
     </div>
-
     <div class="playBox">
         <div id="player">
             <div id="songInfo"></div>
@@ -29,18 +26,13 @@
     </div>
 </body>
 <script>
-    document.body.style.background = "url(bg.png)";
-    document.body.style.backgroundSize = "100% 100%";
     var play = new Player();
     play.config({
         canvasId: "show",
-        playList: [
-            {
-                title: "bird",            
-                mp3: "music/bird.mp3",
-            }
-        ]
-    });    
-    
+        songTitle: "bird",            
+        songSrc: "music/bird.mp3"        
+    });
+    document.body.style.background = "url(bg.png)";
+    document.body.style.backgroundSize = "100% 100%";    
 </script>
 </html>
