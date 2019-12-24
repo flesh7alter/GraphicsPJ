@@ -54,31 +54,18 @@ function Player(){
         analyser.connect(audioContext.destination);
         analyser.fftSize = 256;
         var canvas = document.getElementById(Myself.canvasId),
-            meterWidth = 12, 
-            capHeight = 2,
-            meterNum = 1000 / (12 + 3), 
-            ctx = canvas.getContext('2d'),
-            capPosition = [],
-            bars = Math.round(meterNum);
+            meterWidth = 15, 
+            meterNum = 1000 / (15 + 5), 
+            ctx = canvas.getContext('2d');
         var drawMeter = function () {
             var array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             var step = Math.round(array.length / meterNum); 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (var i = 0; i < meterNum; i++) {
-                var value = array[i * step];  
-                if (capPosition.length < bars) {
-                    capPosition.push(value); 
-                };
-                ctx.fillStyle = '#FFFFFF';
-                if (value < capPosition[i]) {
-                    ctx.fillRect(i * 15, canvas.height-2 - (--capPosition[i]), meterWidth, capHeight);
-                } else {
-                    ctx.fillRect(i * 15, canvas.height-2 - value, meterWidth, capHeight);
-                    capPosition[i] = value;
-                };
-                ctx.fillStyle = '#258fb8';
-                ctx.fillRect(i * 15, canvas.height - value, meterWidth, value);
+                var value = array[i * step];                  
+                ctx.fillStyle = 'rgb(50,0,' + (value+100) + ')';
+                ctx.fillRect(i * 20, canvas.height - value, meterWidth, value);
             }
             requestAnimationFrame(drawMeter);
         }
