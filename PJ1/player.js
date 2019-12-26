@@ -1,39 +1,32 @@
 function Player(){
     var Myself = this;
     this.config = function (Object) {
-        Myself.playList = Object.playList;
+        Myself.songTitle = Object.songTitle;
+        Myself.songSrc = Object.songSrc;
         Myself.canvasId = Object.canvasId;
-        Myself.handle = 0;
         load();
     }
 
     function load() {
         var audio = document.createElement("AUDIO");
-        var player = document.getElementById("player");
-        player.appendChild(audio);
+        document.getElementById("player").appendChild(audio);
         Myself.audio = audio;
-        var playList = Myself.playList;
-        Myself.audio.src = playList[0].mp3;
-        var songInfo = document.getElementById('songInfo');
         var songTitle = document.createElement('div');
         songTitle.id = "songTitle";
-        songInfo.appendChild(songTitle);
-        var playerTime = document.getElementById("playerTime");
-        Myself.playerTime = playerTime;
-        var progress = document.getElementById("progress");
-        progress.style.cursor = "pointer";        
+        document.getElementById('songInfo').appendChild(songTitle);
+        document.getElementById("progress").style.cursor = "pointer";        
         play();
     }
 
     function play(){
+        Myself.audio.src = Myself.songSrc;
         Myself.audio.play();
-        var playList = Myself.playList;
         var songTitle = document.getElementById("songTitle");
-        songTitle.innerHTML = playList[0].title;
-        songTitle.title = playList[0].title;
+        songTitle.innerHTML = Myself.songTitle;
+        songTitle.title = Myself.songTitle;
         timer = setInterval(function () {
             showTime();
-        }, 1000);
+        }, 1000);    
         playHandle();    
     }
 
@@ -47,10 +40,10 @@ function Player(){
                 return Math.floor(t / 60) + ":" + (t % 60 / 100).toFixed(2).slice(-2);
             }
             document.getElementById("playerProgressBar").style.width = ratio + "%";
-            Myself.playerTime.innerHTML = timeFormat(currentTime) + "&nbsp;/&nbsp;" + timeFormat(duration) ;        
+            document.getElementById("playerTime").innerHTML = timeFormat(currentTime) + "&nbsp;/&nbsp;" + timeFormat(duration) ;        
         } 
         else {
-            Myself.playerTime.innerHTML = "-&nbsp;00:00&nbsp;/&nbsp;00:00&nbsp;";
+            document.getElementById("playerTime").innerHTML = "-&nbsp;00:00&nbsp;/&nbsp;00:00&nbsp;";
         }
     }
     function playHandle() {
@@ -60,41 +53,22 @@ function Player(){
         playData.connect(analyser);
         analyser.connect(audioContext.destination);
         analyser.fftSize = 256;
-        bar(analyser);
-    }
-
-
-    function bar(analyser) {
         var canvas = document.getElementById(Myself.canvasId),
-            meterWidth = 12, 
-            capHeight = 2,
-            meterNum = 1000 / (12 + 3), 
-            ctx = canvas.getContext('2d'),
-            capPosition = [],
-            bars = Math.round(meterNum);
+            meterWidth = 15, 
+            meterNum = 1000 / (15 + 5), 
+            ctx = canvas.getContext('2d');
         var drawMeter = function () {
             var array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             var step = Math.round(array.length / meterNum); 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (var i = 0; i < meterNum; i++) {
-                var value = array[i * step];  
-                if (capPosition.length < bars) {
-                    capPosition.push(value); 
-                };
-                ctx.fillStyle = '#FFFFFF';
-                if (value < capPosition[i]) {
-                    ctx.fillRect(i * 15, canvas.height-2 - (--capPosition[i]), meterWidth, capHeight);
-                } else {
-                    ctx.fillRect(i * 15, canvas.height-2 - value, meterWidth, capHeight);
-                    capPosition[i] = value;
-                };
-                ctx.fillStyle = '#258fb8';
-                ctx.fillRect(i * 15, canvas.height - value, meterWidth, value);
+                var value = array[i * step];                  
+                ctx.fillStyle = 'rgb(50,0,' + (value+100) + ')';
+                ctx.fillRect(i * 20, canvas.height - value, meterWidth, value);
             }
             requestAnimationFrame(drawMeter);
         }
         requestAnimationFrame(drawMeter);
     }
-
 }
