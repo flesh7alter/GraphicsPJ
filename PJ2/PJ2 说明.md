@@ -1,4 +1,4 @@
-<center><h2>图形学PJ2</h2></center>
+## 图形学PJ2
 
 ### 实验环境
 
@@ -135,3 +135,14 @@ void init()
 ### 运行结果
 
 <img src = "result.png" height="400px" width= "400px" />
+
+### 参考资料
+
+> <https://www.cnblogs.com/gaoteng/archive/2011/11/19/2350372.html>
+>
+> <https://www.cnblogs.com/onlycxue/archive/2013/08/14/3256623.html>
+>
+> <https://blog.csdn.net/wangyuchun_799/article/details/7801871>
+>
+> <https://blog.csdn.net/heyuchang666/article/details/51146384>
+

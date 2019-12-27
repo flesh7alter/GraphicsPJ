@@ -141,3 +141,7 @@ function showTime() {
 
 ### 参考资料
 
+> https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API
+>
+> <https://www.runoob.com/html/html-tutorial.html>
+
